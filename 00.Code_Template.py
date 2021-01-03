@@ -6,11 +6,11 @@ INPUT = '''
 def parse_input(input):
     return input.split('\n')
 
-def part1():
+def part1(input):
     result = 0
     return result
 
-def part2():
+def part2(input):
     result = 0
     return result
 
@@ -19,9 +19,10 @@ if __name__ == "__main__":
         input = INPUT_TEST
     else:
         input = INPUT
+    input = parse_input(input)
 
     if (exec_part == 1):
-        result = part1()
+        result = part1(input)
     else:
-        result = part2()
+        result = part2(input)
     print('Part {} answer: {}'.format(exec_part, result))
