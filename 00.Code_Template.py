@@ -1,9 +1,13 @@
 import datetime
 exec_part = 1 # which part to execute
 exec_test_case = 1 # 1 = test input; 0 = real puzzle input
-INPUT_TEST = '''12'''
+
+# Puzzle input
+INPUT_TEST = '''
+'''
 INPUT = '''
 '''
+
 def parse_input(input):
     return input.split('\n')
 
