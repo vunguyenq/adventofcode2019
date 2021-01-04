@@ -23,7 +23,7 @@ def part1(input):
         cmd = instruction % 100
         param1_mode = (instruction // 100) % 10
         param2_mode = (instruction // 1000) % 10
-        param3_mode = (instruction // 10000) % 10
+        #param3_mode = (instruction // 10000) % 10
         if  (cmd==1): # Add
             param_1 = read_param(input, param1_mode, input[i+1])
             param_2 = read_param(input, param2_mode, input[i+2])
@@ -56,7 +56,7 @@ def part2(input):
         cmd = instruction % 100
         param1_mode = (instruction // 100) % 10
         param2_mode = (instruction // 1000) % 10
-        param3_mode = (instruction // 10000) % 10
+        #param3_mode = (instruction // 10000) % 10
         #print(i,cmd)
         if  (cmd==1): # Add
             param_1 = read_param(input, param1_mode, input[i+1])
