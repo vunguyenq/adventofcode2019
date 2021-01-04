@@ -1,3 +1,4 @@
+import datetime
 exec_part = 1 # which part to execute
 exec_test_case = 1 # 1 = test input; 0 = real puzzle input
 INPUT_TEST = '''12'''
@@ -21,8 +22,11 @@ if __name__ == "__main__":
         input = INPUT
     input = parse_input(input)
 
+    start_time = datetime.datetime.now() 
     if (exec_part == 1):
         result = part1(input)
     else:
         result = part2(input)
+    end_time = datetime.datetime.now() 
+    print('Part {} time: {}'.format(exec_part, end_time - start_time))
     print('Part {} answer: {}'.format(exec_part, result))
