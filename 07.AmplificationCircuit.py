@@ -159,7 +159,7 @@ def part2(input):
 
         comp5_out = 0
         while(True):
-            next_input(comp1,comp5_out)
+            next_input(comp1, comp5_out)
             next_input(comp2, comp1.output)
             next_input(comp3, comp2.output)
             next_input(comp4, comp3.output)
