@@ -16,7 +16,6 @@ class IntcodeComputer:
         self.input = None 
         self.output = None # result of the latest Output instruction
         self.finished = False # track if all instructions in memory has been executed
-        pass
     
     def init_memory(self, mem):
         self.mem = mem.copy()
