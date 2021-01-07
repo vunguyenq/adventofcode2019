@@ -1,2 +1,4 @@
 06 - Construct and traverse tree structure with treelib library
 07 - OOP
+10 - Revision: equation of line between two points; clockwise angle between 2 vectors
+     Numpy array - quickly find coordinates (x,y) of 1s in a binary 2D array
