@@ -144,8 +144,8 @@ def part2(input):
         else:
             angles[beam_angle].append((a, dist))
     
-    # Dictionary to hold angles that of each asteroid being vaporated by a laser beam
-    # If several asteroids line up, ex. X -> 1 -> 2 ->3 and (1: 45 deg), then (2: 45 + 360 deg), (3: 45 + 720 deg) and so on
+    # Dictionary to hold angles of each asteroid being vaporated by the laser beam
+    # If multiple asteroids line up, ex. X -> 1 -> 2 ->3 and (1: 45 deg), then (2: 45 + 360 deg), (3: 45 + 720 deg) and so on
     rotate_beams = {}
     for angle in angles:
         asteroids = [item[0] for item in angles[angle]]
