@@ -2,3 +2,4 @@
 07 - OOP
 10 - Revision: equation of line between two points; clockwise angle between 2 vectors
      Numpy array - quickly find coordinates (x,y) of 1s in a binary 2D array
+11 - Rotate vector clockwise/ counter clockwise around (0,0)
