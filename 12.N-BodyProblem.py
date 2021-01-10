@@ -94,7 +94,7 @@ def lcm(lst):
         lcm = lcm*i//gcd(lcm, i)
     return lcm
 
-# Idea: position and velocity are updated on each axis separately
+# Idea: position and velocity are updated on each axis separately, independant to other axes
 # Therefore we can brute force minimum time steps for (position + velocity) to repeat on each of 3 axis. Result will be LCM of 3 time steps
 def part2(input):
     pos_x, pos_y, pos_z = list(map(list,list(zip(*input))))
