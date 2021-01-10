@@ -96,6 +96,7 @@ def lcm(lst):
 
 # Idea: position and velocity are updated on each axis separately, independant to other axes
 # Therefore we can brute force minimum time steps for (position + velocity) to repeat on each of 3 axis. Result will be LCM of 3 time steps
+# Discussion why the cycle has to contain the starting position: https://www.reddit.com/r/adventofcode/comments/ecesu5/2019_day_12_part_2_deceptively_easy/
 def part2(input):
     pos_x, pos_y, pos_z = list(map(list,list(zip(*input))))
     vel_x, vel_y, vel_z = [[0,0,0,0] for _ in range(3)]
