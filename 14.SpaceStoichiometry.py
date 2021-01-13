@@ -142,7 +142,7 @@ def find_base_chems(chem, required_qty, all_chems, chem_stock):
     if chem_stock[chem] >= required_qty: # enough chem in stock to fulfill required quantity
         chem_stock[chem] -= required_qty
         return 0
-    else: # not enought chem, need to do reactions to produce more
+    else: # not enough chem, need to do reactions to produce more
         ore_qty = 0
         produce_qty = required_qty - chem_stock[chem] # After taking all left-over chem from stock, how many chem still need to produce
         chem_stock[chem] = 0 # Take all left-over from stock
