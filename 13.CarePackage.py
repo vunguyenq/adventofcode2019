@@ -2,7 +2,6 @@ import datetime
 import time
 from IntcodeComputer import IntcodeComputer
 import numpy as np
-import matplotlib.pyplot as plt
 import pygame
 
 exec_part = 2 # which part to execute
