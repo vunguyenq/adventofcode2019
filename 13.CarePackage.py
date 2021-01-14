@@ -107,7 +107,6 @@ def part2(input):
         comp.run_until_input()
         outputs = comp.outputs
         # Update score & position of empty tiles, ball & paddle after each input
-        #empties = []
         for i in np.linspace(0, len(outputs)-3, int(len(outputs)/3)).astype(int):
             x,y,id = outputs[i:i+3]
             if (x == -1 and y == 0): 
