@@ -6,7 +6,8 @@ import pygame
 import networkx as nx
 
 # Graphic constants
-VISUALIZE = True 
+VISUALIZE_P1 = True 
+VISUALIZE_P2 = True 
 TILE_SIZE = 20 # 20x20 pixels
 LEFT_MARGIN = 500
 TOP_MARGIN = 500
@@ -55,7 +56,9 @@ def draw_lines(screen, nodes, color):
         y2 = y2 * TILE_SIZE + int(TILE_SIZE/2) + TOP_MARGIN
         pygame.draw.line(screen, color, (x1, y1), (x2, y2), 3)
 
-def draw_frame(screen, droid, walls, oxy_pos, font, line_nodes = None):
+def draw_frame(screen, droid, walls, oxy_pos, text, line_nodes = None, filled_cells = None):
+    font = pygame.font.SysFont('Comic Sans MS', 30)
+
     # Fill the background with white
     screen.fill((255, 255, 255))
     # Draw walls
@@ -71,9 +74,14 @@ def draw_frame(screen, droid, walls, oxy_pos, font, line_nodes = None):
     # Draw lines if any:
     if line_nodes is not None:
         draw_lines(screen, line_nodes, BLUE)
+    if filled_cells is not None:
+        for c in filled_cells:
+            draw_tile(screen, c, GREEN)
     # Print droid location
-    textsurface = font.render('Droid: {}'.format(droid), False, RED)
-    screen.blit(textsurface,(400,10))
+    if(text=='Droid'):
+        text = 'Scanning maze. Droid location: {}'.format(droid)
+    textsurface = font.render(text, False, RED)
+    screen.blit(textsurface,(200,10))
     # Refresh display & draw frame
     pygame.display.flip()
 
@@ -86,12 +94,11 @@ def draw_frame(screen, droid, walls, oxy_pos, font, line_nodes = None):
 
 # https://en.wikipedia.org/wiki/Maze_solving_algorithm#Tr%C3%A9maux's_algorithm
 def part1(input_data):
-    if(VISUALIZE):
+    if(VISUALIZE_P1):
         # Set up the drawing window
         screen = pygame.display.set_mode([1000, 1000])
         pygame.display.set_caption('AoC 2019 Day 15 Part 1 - Maze scanner')
         pygame.font.init()
-        myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
     comp = IntcodeComputer()
     comp.init_memory(input_data)
@@ -172,23 +179,43 @@ def part1(input_data):
             path_graph.add_edge(droid_loc, new_droid_loc)
 
         # Visualize maze scanner
-        if(VISUALIZE):
-            draw_frame(screen, droid, walls, oxy_pos, myfont)
+        if(VISUALIZE_P1):
+            draw_frame(screen, droid, walls, oxy_pos, 'Droid')
         if(tuple(droid) == (0,0)):
             break
     
     print('Starting position of repair droid: {}'.format((0,0)))
     print('Location of oxy system: {}'.format(tuple(oxy_pos)))
     oxy_path = nx.shortest_path(path_graph, source=(0,0), target = tuple(oxy_pos))
-    if(VISUALIZE):
-        draw_frame(screen, (0,0), walls, oxy_pos, myfont, oxy_path)
+    if(VISUALIZE_P1):
+        draw_frame(screen, (0,0), walls, oxy_pos, 'Droid', oxy_path)
     print('Shortest path from droid to oxy system: {} nodes (including droid and oxy system)'.format(len(oxy_path)))
-    input('Press Enter to continue...')
-    return len(oxy_path) - 1
+    return (len(oxy_path) - 1, walls, path_graph, oxy_pos) 
 
-def part2(input_data):
-    result = 0
-    return result
+def part2(walls, path_graph, oxy_pos):
+    if(VISUALIZE_P2):
+        # Set up the drawing window
+        screen = pygame.display.set_mode([1000, 1000])
+        pygame.display.set_caption('AoC 2019 Day 15 Part 2 - Filling oxygen')
+        pygame.font.init()
+
+    oxy_pos = tuple(oxy_pos)
+    minute = 0
+    filled_tiles = set([oxy_pos])
+    latest_fills = set([oxy_pos])
+    while(True):
+        minute += 1
+        neighbors = []
+        for cell in latest_fills:
+            neighbors = neighbors + list(path_graph.neighbors(cell))
+        neighbors = set(neighbors)
+        latest_fills = neighbors - filled_tiles
+        if(len(latest_fills) == 0):
+            break
+        filled_tiles = filled_tiles.union(latest_fills)
+        draw_frame(screen, (0,0), walls, None, 'Filling oxygen. Minute: {}'.format(minute), line_nodes = None, filled_cells = filled_tiles)
+
+    return minute-1
 
 if __name__ == "__main__":
     if(exec_test_case == 1):
@@ -197,11 +224,13 @@ if __name__ == "__main__":
         input_data = INPUT
     input_data = parse_input(input_data)
 
-    start_time = datetime.datetime.now() 
-    if (exec_part == 1):
-        result = part1(input_data)
-    else:
-        result = part2(input_data)
-    end_time = datetime.datetime.now() 
-    print('Part {} time: {}'.format(exec_part, end_time - start_time))
-    print('Part {} answer: {}'.format(exec_part, result))
+    p1_result, walls, path_graph, oxy_pos = part1(input_data)
+    print('Part 1 answer: {}'.format(p1_result))
+    if(VISUALIZE_P1):
+        input('Press Enter to continue to Part 2...')
+    p2_result = part2(walls, path_graph, oxy_pos)
+    print('Part 2 answer: {}'.format(p2_result))
+    if(VISUALIZE_P2):
+        input('Press Enter to close...')  
+    
+    
