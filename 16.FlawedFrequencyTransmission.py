@@ -47,7 +47,6 @@ def phase_offset(signal):
     output_signal = [signal[-1]]
     n = len(signal)
     for i in range(1,n):
-        #print(output_signal[i-1], signal[-i-1], output_signal[i-1] + signal[-i-1])
         output_signal.append((output_signal[i-1] + signal[-i-1]) % 10)
     return list(reversed(output_signal))
 
