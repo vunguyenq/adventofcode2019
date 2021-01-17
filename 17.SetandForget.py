@@ -122,9 +122,9 @@ def part2(input):
     ascii_input(comp, func_b)
     ascii_input(comp, func_c)
     ascii_input(comp, 'n\n')
+    
+    # print all computer outputs:
     print(''.join([chr(d) for d in comp.outputs]))
-    print(comp.output)
-
     return comp.output
 
 if __name__ == "__main__":
