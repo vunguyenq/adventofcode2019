@@ -128,3 +128,11 @@ class IntcodeComputer:
             if (cmd == 99):
                 self.finished = True
                 break
+    
+    # Parse intcode program and initialize memory
+    def parse_input_string(self, input_string):
+        input_lst = list(map(int,input_string.split(',')))
+        input_dict = {}
+        for i, val in enumerate(input_lst):
+            input_dict[i] = val
+        self.init_memory(input_dict)
