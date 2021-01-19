@@ -7,3 +7,4 @@
 13 - 2d graphics with pygame
 14 - Revision: Recursion
 15 - Maze finder algorithm: Trémaux's algorithm https://en.wikipedia.org/wiki/Maze_solving_algorithm#Tr%C3%A9maux's_algorithm
+18 - BFS algorithm to find shortest path / scan all nodes in a graph
