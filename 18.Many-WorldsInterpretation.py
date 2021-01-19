@@ -173,7 +173,7 @@ def part1(input):
 # Idea for part 2:
 # Theoretically can be solved by the same approach with Part 1. However instead of (X,Y,PossessedKeys), a state (node in the graph) is now (X1,Y1,X2,Y2,X3,Y3,X4,Y4,PossessedKeys) because of 4 robots
 # Reality: 
-#   + Implemented, worked on 4 test cases of Part 2.
+#   + Implemented, yielded correct result on 4 test cases of Part 2.
 #   + However, on real puzzle input, queue & visisted grew to 2.5M & 32M nodes respectively without returning an answer. Search space became too large
 # Another approach: apply BFS (Part 1) in each quadrant/ quarter. Change: let robot go through doors in a quater if keys for such doors are not in the same quarter
 # This is NOT a generalized solution, but worked
