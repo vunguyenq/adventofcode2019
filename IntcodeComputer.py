@@ -136,3 +136,8 @@ class IntcodeComputer:
         for i, val in enumerate(input_lst):
             input_dict[i] = val
         self.init_memory(input_dict)
+
+    # Reset computer with a new memory
+    def reset(self, mem):
+        self.__init__()
+        self.init_memory(mem)
