@@ -11,3 +11,4 @@
      Compress a binary array to store into a single integer 
 19 - Visualize networkx graph with self-defined node layout
      Invert y axis of matplotlib.pyplot to display coordinates with root at topleft corner
+22 - Modular arithmetic: Grouping a series of transformation steps (f1(f2(f3(...(fn(x)))))) into a single transformation f(x) = a.x + b (mod m)
