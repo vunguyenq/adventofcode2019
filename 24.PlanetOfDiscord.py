@@ -66,6 +66,7 @@ def part1(input):
         result += d*(2**i)
     return result
 
+# Find adjacent tile of a given tile in a 3-D recursive space
 def find_ajacents(coor):
     r, c, l = coor # row, col, layer
     adjacents = []
