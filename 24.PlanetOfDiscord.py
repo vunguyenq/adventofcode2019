@@ -1,7 +1,7 @@
 import datetime
 import numpy as np
 
-exec_part = 1 # which part to execute
+exec_part = 2 # which part to execute
 exec_test_case = 0 # 1 = test input; 0 = real puzzle input
 
 # Puzzle input
@@ -66,9 +66,65 @@ def part1(input):
         result += d*(2**i)
     return result
 
+def find_ajacents(coor):
+    r, c, l = coor # row, col, layer
+    adjacents = []
+    for ar,ac in [(r+1,c),(r,c+1),(r-1,c),(r,c-1)]:
+        # adjacents in the same layer
+        if(ar,ac) == (2,2) or ar < 0 or ac < 0 or ar > 4 or ac > 4: pass
+        else: adjacents.append((ar, ac, l))
+        
+        # adjacents in outer layer
+        if ar < 0: adjacents.append((1, 2, l-1))
+        if ar > 4: adjacents.append((3, 2, l-1))
+        if ac < 0: adjacents.append((2, 1, l-1))
+        if ac > 4: adjacents.append((2, 3, l-1))
+        
+        # adjacents in inner layers:
+        if(ar, ac) == (2,2):
+            if (r,c) == (1,2): adjacents = adjacents + [(0, i, l+1) for i in range(5)]
+            if (r,c) == (3,2): adjacents = adjacents + [(4, i, l+1) for i in range(5)]
+            if (r,c) == (2,1): adjacents = adjacents + [(i, 0, l+1) for i in range(5)]
+            if (r,c) == (2,3): adjacents = adjacents + [(i, 4, l+1) for i in range(5)]
+    return adjacents
+
 def part2(input):
-    result = 0
-    return result
+    first_layer = input.copy()
+    # Initialize (n+1)*2 empty recursive layers (n+1 inner and n+1 outer of the given layers)
+    empty_layout = np.zeros(25).reshape(5,5).astype(int)
+    n_layers = 200
+    space = [empty_layout.copy() for _ in range(n_layers * 2 + 3)]
+    space[n_layers] = first_layer
+    
+    # run N minutes
+    N_minutes = 200
+    for minute in range(N_minutes):
+        layers = list(range(n_layers-minute-1, n_layers+minute + 2)) # in a minute, bugs spread to maximum +-1 layers => at minute = 1,2,3, scan only (minute * 2 + 1) layers
+        new_layers = []
+        for l in layers:
+            layer = space[l]
+            new_layer = layer.copy()
+            for r in range(5):
+                for c in range(5):
+                    if (r,c) == (2,2):
+                        continue
+                    val = layer[r][c]
+                    bugs = 0
+                    adjacents = find_ajacents((r,c,l))
+                    for nr, nc, nl in adjacents:
+                        bugs += space[nl][nr][nc]
+                    if val == 1:
+                        new_layer[r][c] = 1 if bugs == 1 else 0
+                    else:
+                        new_layer[r][c] = 1 if bugs == 1 or bugs == 2 else 0
+            new_layers.append(new_layer)
+        for i, l in enumerate(layers):
+            space[l] = new_layers[i]
+
+    bug_count = 0
+    for l in layers:
+        bug_count += np.sum(space[l])
+    return bug_count
 
 if __name__ == "__main__":
     if(exec_test_case == 1):
