@@ -142,7 +142,7 @@ class IntcodeComputer:
         self.__init__()
         self.init_memory(mem)
 
-    # Take ASCII input command. Command terminated with a new linea
+    # Take ASCII input command. Command terminated with a new line
     def ascii_command(self, cmd):
         if(cmd[-1] != '\n'): cmd += '\n'
         for c in cmd:
