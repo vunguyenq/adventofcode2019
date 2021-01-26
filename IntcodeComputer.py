@@ -141,3 +141,10 @@ class IntcodeComputer:
     def reset(self, mem):
         self.__init__()
         self.init_memory(mem)
+
+    # Take ASCII input command. Command terminated with a new line
+    def ascii_command(self, cmd):
+        if(cmd[-1] != '\n'): cmd += '\n'
+        for c in cmd:
+            self.set_input(ord(c))
+            self.run_until_input()
